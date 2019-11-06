@@ -8,6 +8,15 @@
 #include "my.h"
 #include "myprintf.h"
 
+void display_unsigned_int(va_list ap)
+{
+    int nb = va_arg(ap, unsigned int);
+    if(nb > 0)
+        my_put_nbr(nb);
+    else
+        my_putstr("error, not a unsigned int");
+}
+
 void display_S_my_printf(char const *str)
 {
     for (int i = 0; str[i] != 0; i++) {
@@ -15,9 +24,9 @@ void display_S_my_printf(char const *str)
             char *octal = my_putnbr_base(str[i], "01234567");
             int length = my_strlen(octal);
             if (length == 1)
-                my_putstr("\\00");
+                my_putstr("0\\00");
             if (length == 2)
-                my_putstr("\\0");
+                my_putstr("0\\0");
             my_putstr(octal);
         } else {
             my_putchar(str[i]);
@@ -27,12 +36,12 @@ void display_S_my_printf(char const *str)
 
 int is_my_printf_value(char const *str, int index)
 {
-    char tabs[9] = {'c', 's', 'd', 'o', 'x', 'b', 'p', 'P', 'S'};
+    char tabs[10] = {'c', 's', 'd', 'o', 'x', 'b', 'p', 'P', 'S', 'u'};
 
     if (str[index] == '%') {
         if (str[index + 1] == 'l' && str[index + 2] == 'f')
             return (2);
-        for (int i = 0; i <= 10; i++) {
+        for (int i = 0; i <= 11; i++) {
             if (str[index + 1] == tabs[i]) {
                 return (1);
             }
@@ -63,6 +72,8 @@ void my_printf_check_type(char const *str, int index, va_list ap)
         my_putstr(my_putnbr_base(va_arg(ap, int), "0123456789abcdef"));
     }
     if (str[index + 1] == 'u')
+        display_unsigned_int(ap);
+
 }
 
 void my_printf(char const *str, ...)

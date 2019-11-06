@@ -41,8 +41,7 @@ SRC 		= 	$(SRCPATH)/my_compute_factorial_it.c		\
 				$(SRCPATH)/my_putnbr_base.c					\
 				$(SRCPATH)/get_int_length.c					\
 				$(SRCPATH)/my_isprintable.c					\
-				$(SRCPATH)/my_printf.c						\
-				main.c
+				$(SRCPATH)/my_printf.c
 
 TESTS		=	$(TESTPATH)/test_my_printf.c				\
 				$(TESTPATH)/test_my_putnbr_base.c			\
@@ -67,5 +66,5 @@ fclean:			clean
 				rm -rf $(NAME) $(TNAME)
 re:				fclean all
 test_run:		$(OBJTESTS) $(OBJ)
-				gcc -o $(TNAME) $(OBJ)
+				gcc -o $(TNAME) $(OBJ) $(OBJTESTS) $(TFLAGS)
 				./unit_tests

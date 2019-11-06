@@ -42,7 +42,19 @@ Test(my_printf, char_ascii, .init=redirect_all_std)
     char char_ascii[5] = "toto";
     char_ascii[1] = 6;
     my_printf("%S", char_ascii);
-    cr_assert_stdout_eq_str("t0\\06to");
+    cr_assert_stdout_eq_str("t0\\006to");
+}
+
+Test(my_print, all_tested, .init=redirect_all_std)
+{
+    char *world = "Hello World !";
+    int nbr = -50415;
+    int nb2 = 495;
+    char c = 'Y';
+    char toto[5] = "toto";
+    toto[1] = 6;
+    my_printf("%s I'm %d %cears old, %b, %x test %S, %p, %P", world, nbr, c, nbr, nb2, toto, nb2, nb2);
+    cr_expect_stdout_eq_str("Hello World ! I'm -50415 Years old, 1100010011101111, 1EF test t0\\006to, 0x1ef, 1EF");
 }
 
 /*
