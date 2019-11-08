@@ -56,4 +56,7 @@ void *my_putnbr_base(int nbr, char const *base);
 int get_int_length(int nbr);
 int my_isprintable(char c);
 
+void my_put_float(float nb);
+void my_put_nfloat(float nb, int length);
+
 #endif

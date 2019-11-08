@@ -5,21 +5,24 @@
 ** show float number
 */
 
-void my_putchar(char c);
+#include "my.h"
 
 void my_put_float(float nbr)
 {
-    if (nbr > -2147483647 && nbr < 2147483647) {
-        if (nbr >= 10) {
-            my_put_nbrr(nbr / 10);
-            my_put_nbrr(nbr % 10);
-        }
-        if (nbr < 10 && nbr >= 0) {
-            my_putchar('0' + nbr);
-        }
-        if (nbr < 0) {
-            my_putchar('-');
-            my_put_nbrr(nbr * -1);
-        }
-    }
+    my_put_nbr(nbr);
+    int integer = (int) nbr;
+    int fl = nbr * 100;
+    my_putchar('.');
+    int a = ((nbr - integer) * 1000000);
+    my_put_nbr(a);
+}
+
+void my_put_nfloat(float nbr, int length)
+{
+    my_put_nbr(nbr);
+    int integer = (int) nbr;
+    int fl = nbr * 100;
+    my_putchar('.');
+    int a = ((nbr - integer) * my_compute_power_it(10, length));
+    my_put_nbr(a);
 }

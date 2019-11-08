@@ -23,6 +23,18 @@ Test(my_printf, string, .init=redirect_all_std)
     cr_assert_stdout_eq_str("Hello World");
 }
 
+Test(my_printf, just_one_string, .init=redirect_all_std)
+{
+    my_printf("Hello World !");
+    cr_assert_stdout_eq_str("Hello World !");
+}
+
+Test(my_printf, one_flag_without_arg, .init=redirect_all_std)
+{
+    my_printf("Hello World %d");
+    cr_assert_stdout_eq_str("Hello World 0");
+}
+
 Test(my_printf, integer, .init=redirect_all_std)
 {
     int age = 19;
@@ -45,25 +57,28 @@ Test(my_printf, char_ascii, .init=redirect_all_std)
     cr_assert_stdout_eq_str("t0\\006to");
 }
 
-Test(my_print, all_tested, .init=redirect_all_std)
+Test(my_printf, modulo, .init=redirect_all_std)
 {
-    char *world = "Hello World !";
-    int nbr = -50415;
-    int nb2 = 495;
-    char c = 'Y';
-    char toto[5] = "toto";
-    toto[1] = 6;
-    my_printf("%s I'm %d %cears old, %b, %x test %S, %p, %P", world, nbr, c, nbr, nb2, toto, nb2, nb2);
-    cr_expect_stdout_eq_str("Hello World ! I'm -50415 Years old, 1100010011101111, 1EF test t0\\006to, 0x1ef, 1EF");
+    my_printf("Hello World %% test");
+    cr_assert_stdout_eq_str("Hello World % test");
 }
 
-/*
-
-Test(display_S_my_printf, display)
+Test(my_printf, only_modulo, .init=redirect_all_std)
 {
-    char test[5] = "toto";
-    test[1] = 6;
-    display_S_my_printf(test);
+    my_printf("abc % test");
+    cr_assert_stdout_eq_str("abc % test");
 }
 
- */
+Test(printf, float_nbr, .init=redirect_all_std)
+{
+    float ab = 5012.65;
+    my_printf("%f", ab);
+    cr_assert_stdout_eq_str("5012.649902");
+}
+
+Test(printf, number_with_flags, .init=redirect_all_std)
+{
+    float ab = 5012.612619;
+    my_printf("%.2f", ab);
+    cr_assert_stdout_eq_str("5012.61");
+}

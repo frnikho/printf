@@ -41,7 +41,10 @@ SRC 		= 	$(SRCPATH)/my_compute_factorial_it.c		\
 				$(SRCPATH)/my_putnbr_base.c					\
 				$(SRCPATH)/get_int_length.c					\
 				$(SRCPATH)/my_isprintable.c					\
-				$(SRCPATH)/my_printf.c
+				$(SRCPATH)/my_printf.c						\
+				$(SRCPATH)/myprintf/display_printf.c		\
+				$(SRCPATH)/my_put_float.c					\
+				$(SRCPATH)/myprintf/my_printf_d_flags.c
 
 TESTS		=	$(TESTPATH)/test_my_printf.c				\
 				$(TESTPATH)/test_my_putnbr_base.c			\

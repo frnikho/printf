@@ -8,50 +8,40 @@
 #include "my.h"
 #include "myprintf.h"
 
-void display_unsigned_int(va_list ap)
-{
-    int nb = va_arg(ap, unsigned int);
-    if(nb > 0)
-        my_put_nbr(nb);
-    else
-        my_putstr("error, not a unsigned int");
-}
-
-void display_S_my_printf(char const *str)
-{
-    for (int i = 0; str[i] != 0; i++) {
-        if(str[i] < 32 || str[i] == 127) {
-            char *octal = my_putnbr_base(str[i], "01234567");
-            int length = my_strlen(octal);
-            if (length == 1)
-                my_putstr("0\\00");
-            if (length == 2)
-                my_putstr("0\\0");
-            my_putstr(octal);
-        } else {
-            my_putchar(str[i]);
-        }
-    }
-}
-
 int is_my_printf_value(char const *str, int index)
 {
-    char tabs[10] = {'c', 's', 'd', 'o', 'x', 'b', 'p', 'P', 'S', 'u'};
-
-    if (str[index] == '%') {
-        if (str[index + 1] == 'l' && str[index + 2] == 'f')
-            return (2);
-        for (int i = 0; i <= 11; i++) {
-            if (str[index + 1] == tabs[i]) {
-                return (1);
-            }
+    char tabs[13] = {'c', 's', 'd', 'o', 'x', 'b', 'p', 'P', 'S',
+                     'u', '%', 'f', '.'};
+    if (str[index + 1] == 'l' && str[index + 2] == 'f')
+        return (2);
+    for (int i = 0; i <= 14; i++) {
+        if (str[index + 1] == '.' && my_isnum(str[index + 2]) && str[index + 3] == tabs[i]) {
+            return (3);
         }
-    } else {
-        return (0);
+        if (str[index + 1] == tabs[i])
+            return (1);
     }
+
+    return (0);
 }
 
-void my_printf_check_type(char const *str, int index, va_list ap)
+void my_printf_flags(char const *str, int index, va_list ap)
+{
+    int nbr = str[index + 2] - 48;
+    if (str[index + 3] == 'f')
+        my_put_nfloat(va_arg(ap, double), nbr);
+
+}
+
+void my_printf_check_type_2(char const *str, int index, va_list ap)
+{
+    if (str[index + 1] == '%')
+        my_putchar('%');
+    if (str[index + 1] == 'f')
+        my_put_float(va_arg(ap, double));
+}
+
+void my_printf_check_type_1(char const *str, int index, va_list ap)
 {
     if (str[index + 1] == 's')
         my_putstr(va_arg(ap, char*));
@@ -64,7 +54,7 @@ void my_printf_check_type(char const *str, int index, va_list ap)
     if (str[index + 1] == 'b')
         my_putstr(my_putnbr_base(va_arg(ap, int), "01"));
     if (str[index + 1] == 'S')
-        display_S_my_printf(va_arg(ap, char*));
+        display_s_my_printf(va_arg(ap, char*));
     if (str[index + 1] == 'P')
         my_putstr(my_putnbr_base(va_arg(ap, int), "0123456789ABCDEF"));
     if (str[index + 1] == 'p') {
@@ -84,12 +74,17 @@ void my_printf(char const *str, ...)
     for (int i = 0; str[i] != 0; i++) {
         if (str[i] == '%') {
             int nb = is_my_printf_value(str, i);
-            if (nb != 0)
-                my_printf_check_type(str, i, ap);
+            //TODO add d flags function
+            if (nb == 3)
+                my_printf_flags(str, i, ap);
+            else if (nb != 0) {
+                my_printf_check_type_1(str, i, ap);
+                my_printf_check_type_2(str, i, ap);
+            } else
+                my_putchar('%');
             i += nb;
-        } else {
+        } else
             my_putchar(str[i]);
-        }
     }
     va_end(ap);
 }
