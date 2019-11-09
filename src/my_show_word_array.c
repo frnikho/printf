@@ -14,4 +14,5 @@ int my_show_word_array(char * const *words)
         my_putstr(words[i]);
         my_putchar('\n');
     }
+    return (0);
 }

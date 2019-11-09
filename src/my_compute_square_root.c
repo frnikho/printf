@@ -24,4 +24,5 @@ int my_compute_square_root(int nb)
         }
         index++;
     }
+    return (0);
 }

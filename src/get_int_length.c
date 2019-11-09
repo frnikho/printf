@@ -9,7 +9,7 @@ int get_int_length(int nbr)
 {
     int length = 1;
 
-    for (int i = nbr; nbr > 0; nbr--) {
+    for (; nbr > 0; nbr--) {
         length++;
         nbr /= 10;
     }

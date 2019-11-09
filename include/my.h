@@ -52,6 +52,8 @@ char *my_strupcase(char *str);
 void my_swap(int *a, int *b);
 char *my_strdup(char const *str);
 
+int my_getnbr_index(char const *str, int start_index);
+
 void *my_putnbr_base(int nbr, char const *base);
 int get_int_length(int nbr);
 int my_isprintable(char c);

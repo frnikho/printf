@@ -13,7 +13,6 @@ void *my_putnbr_base(int nbr, char const *base)
     int power = my_strlen(base);
     int length = get_int_length(nbr);
     char *result = malloc(length);
-    int max_base = 0;
     int index = 0;
 
     if (nbr < 0)

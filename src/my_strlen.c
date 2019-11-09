@@ -9,6 +9,6 @@ int my_strlen(char const *str)
 {
     int index = 0;
 
-    for (index; str[index] != 0; index++) continue;
+    for (; str[index] != 0; index++) continue;
     return (index);
 }

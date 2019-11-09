@@ -22,4 +22,5 @@ int my_put_nbr(int nb)
             my_put_nbr(nb * -1);
         }
     }
+    return (0);
 }
