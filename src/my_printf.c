@@ -50,7 +50,7 @@ void my_printf_check_type_1(char const *str, int index, va_list ap)
     if (str[index + 1] == 'c')
         my_putchar(va_arg(ap, int));
     if (str[index + 1] == 'x')
-        my_putstr(my_putnbr_base(va_arg(ap, int), "0123456789ABCDEF"));
+        my_putstr(my_putnbr_base(va_arg(ap, int), "0123456789abcdef"));
     if (str[index + 1] == 'b')
         my_putstr(my_putnbr_base(va_arg(ap, int), "01"));
     if (str[index + 1] == 'S')
@@ -74,7 +74,7 @@ void my_printf(char const *str, ...)
     for (int i = 0; str[i] != 0; i++) {
         if (str[i] == '%') {
             int nb = is_my_printf_value(str, i);
-            //TODO add d flags function
+            nb += my_printf_get_length(str, i, ap);
             if (nb == 3)
                 my_printf_flags(str, i, ap);
             else if (nb != 0) {

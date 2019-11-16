@@ -8,7 +8,7 @@
 #include "my.h"
 #include "myprintf.h"
 
-void my_printf_show_d(char *str, int index, int nbr, int operator)
+void my_printf_show_d(char const *str, int index, int nbr, int operator)
 {
     int d_nbr = my_printf_nbr_params(str, index);
     int length = get_int_length(nbr) - 1;
@@ -29,18 +29,39 @@ void my_printf_show_d(char *str, int index, int nbr, int operator)
     }
 }
 
-int my_printf_nbr_params(char *str, int index)
+int my_printf_nbr_params(char const *str, int index)
 {
     return my_getnbr_index(str, index);
 }
 
-void my_printf_d_flags(char *str, int index, int nbr)
+int my_printf_d_flags(char const *str, int index, int nbr)
 {
-    if (str[index] == '-')
-        my_printf_show_d(str, index+1, nbr, -1);
-    if (str[index] == '+')
-        my_printf_show_d(str, index+1, nbr, +1);
+    int count = 0;
+
+    if (str[index] == '-') {
+        my_printf_show_d(str, index + 1, nbr, -1);
+    }
+    if (str[index] == '+') {
+        my_printf_show_d(str, index + 1, nbr, +1);
+    }
     if (my_isnum(str[index])) {
         my_printf_show_d(str, index, nbr, 0);
     }
+
+    return (count);
+}
+
+int my_printf_get_length(char const *str, int index, va_list ap)
+{
+    int count = 0;
+
+    if (my_isnum(str[index + 1])) {
+        int nbr = my_getnbr_index(str, 1);
+        count += get_int_length(nbr);
+        if (str[count] == 'd') {
+            int nbr = va_arg(ap, int);
+            my_printf_d_flags(str, index+1, nbr);
+        }
+    }
+    return (count);
 }
