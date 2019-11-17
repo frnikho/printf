@@ -136,3 +136,15 @@ Test(my_printf, d_flags_plus_2, .init=redirect_all_std)
     my_printf("%55d is the number like %x in hexa", nbr, nbr);
     cr_assert_stdout_eq_str("                                                     20 is the number like 14 in hexa");
 }
+
+Test(my_printf, error_handle_modulo_1, .init=redirect_all_std)
+{
+    my_printf("%%%%%%");
+    cr_assert_stdout_eq_str("%%%");
+}
+
+Test(my_printf, error_handle_modulo_2, .init=redirect_all_std)
+{
+    my_printf("%");
+    cr_assert_stdout_eq_str("%");
+}

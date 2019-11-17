@@ -72,7 +72,7 @@ void my_printf(char const *str, ...)
     va_start(ap, 0);
 
     for (int i = 0; str[i] != 0; i++) {
-        if (str[i] == '%') {
+        if (str[i] == '%' && str[i+1] != 0) {
             int nb = is_my_printf_value(str, i);
             nb += my_printf_get_length(str, i, ap);
             if (nb == 3)
