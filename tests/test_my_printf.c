@@ -83,14 +83,6 @@ Test(printf, number_with_flags, .init=redirect_all_std)
     cr_assert_stdout_eq_str("5012.61");
 }
 
-Test(printf, d_flags_1)
-{
-    int nbr = 10020;
-//printf("%7d", nbr);
-    //my_printf("%d", nbr);
-//my_printf("\n");
-}
-
 Test(my_printf_nbr_params, number_1)
 {
     char *flags = "%1d";
@@ -101,7 +93,7 @@ Test(my_printf_nbr_params, number_1)
 Test(my_printf_d_flags, nb3, .init=redirect_all_std)
 {
     char *flags = "%3d";
-    int nbr  = 50;
+    int nbr = 50;
     my_printf_d_flags(flags, 1, nbr);
     cr_assert_stdout_eq_str(" 50");
 }
@@ -109,11 +101,10 @@ Test(my_printf_d_flags, nb3, .init=redirect_all_std)
 Test(my_printf_d_flags, nb20, .init=redirect_all_std)
 {
     char *flags = "%20d";
-    int nbr  = 50;
+    int nbr = 50;
     my_printf_d_flags(flags, 1, nbr);
     cr_assert_stdout_eq_str("                  50");
 }
-
 
 Test(my_printf_d_flags, nb_plus_20, .init=redirect_all_std)
 {
@@ -134,7 +125,8 @@ Test(my_printf, d_flags_plus_2, .init=redirect_all_std)
 {
     int nbr = 20;
     my_printf("%55d is the number like %x in hexa", nbr, nbr);
-    cr_assert_stdout_eq_str("                                                     20 is the number like 14 in hexa");
+    cr_assert_stdout_eq_str("                                           "
+    "          20 is the number like 14 in hexa");
 }
 
 Test(my_printf, error_handle_modulo_1, .init=redirect_all_std)

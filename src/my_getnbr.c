@@ -9,22 +9,22 @@
 
 int my_getnbr(char const *str)
 {
-   int result = 0;
-   int coef = 0;
-   int count = 0;
-   int index = 0;
+    int result = 0;
+    int coef = 0;
+    int count = 0;
+    int index = 0;
 
-   while (my_isnum(str[index])) {
+    while (my_isnum(str[index])) {
         count++;
         index++;
-   }
-   coef = my_compute_power_it(10, count-1);
-   for (int i = 0; i < count; i++) {
-       result += (str[i] - 48) * coef;
-       coef /= 10;
-   }
+    }
+    coef = my_compute_power_it(10, count-1);
+    for (int i = 0; i < count; i++) {
+        result += (str[i] - 48) * coef;
+        coef /= 10;
+    }
 
-   return (result);
+    return (result);
 }
 
 int my_getnbr_index(char const *str, int start_index)

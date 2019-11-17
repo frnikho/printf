@@ -18,7 +18,7 @@ void my_printf_show_d(char const *str, int index, int nbr, int operator)
         operator *= -1;
     }
     for (int i = 0; i < d_nbr - operator; i++) {
-        if (length - i <= 0 )
+        if (length - i <= 0)
             my_putchar(32);
     }
     if (operator == 1) {
